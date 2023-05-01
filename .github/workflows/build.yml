@@ -23,6 +23,7 @@ jobs:
         with:
           version: 3.3.${{ github.run_number }}
           file: ./package.json
+      - run: npm install -g typescript
       - run: yarn
       - run: yarn build
       - run: yarn publish
