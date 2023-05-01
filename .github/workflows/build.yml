@@ -11,6 +11,7 @@ jobs:
       # Setup .npmrc file to publish to GitHub Packages
       - uses: actions/setup-node@v3
         with:
+          always-auth: true
           node-version: '16.x'
           registry-url: 'https://npm.pkg.github.com/ommyx'
           # Defaults to the user or organization that owns the workflow file
@@ -21,7 +22,6 @@ jobs:
           version: 3.3.${{ github.run_number }}
           file: ./package.json
       - run: yarn install
-      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
