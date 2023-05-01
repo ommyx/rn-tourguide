@@ -79,5 +79,8 @@
     "logkitty": "^0.7.1",
     "mem": "^4.0.0",
     "set-value": "^4.0.1"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/ommyx/rn-tourguide.git"
   }
 }
