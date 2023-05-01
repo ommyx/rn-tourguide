@@ -1,0 +1,42 @@
+name: Build
+
+on:
+  push:
+    branches: [ master ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      # Setup .npmrc file to publish to GitHub Packages
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://npm.pkg.github.com/ommyx'
+          # Defaults to the user or organization that owns the workflow file
+      - name: Set package version
+        id: package_version
+        uses: KageKirin/set-node-package-version@v1.0.0
+        with:
+          version: 3.3.${{ github.run_number }}
+          file: ./package.json
+      - run: npm install
+        working-directory: ./client
+      - run: npm publish
+        working-directory: ./client
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Slack notify complete
+        if: ${{ success() }}
+        env:
+          msg: ":white_check_mark: Published npm package @ommyx/rntourguide v3.3.${{ github.run_number }}\nhttps://github.com/ommyx/rn-tourguide/packages"
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$msg\"}" ${{ secrets.SLACK_WEBHOOK }}
+
+      - name: Slack notify complete
+        if: ${{ failure() }}
+        env:
+          msg: ":x: Failed to publish npm package @ommyx/rn-tourguide\nhttps://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+        run: |
+          curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$msg\"}" ${{ secrets.SLACK_WEBHOOK }}
