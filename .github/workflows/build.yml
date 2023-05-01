@@ -33,7 +33,7 @@ jobs:
       - name: Slack notify complete
         if: ${{ success() }}
         env:
-          msg: ":white_check_mark: Published npm package @ommyx/rntourguide v3.3.${{ github.run_number }}\nhttps://github.com/ommyx/rn-tourguide/packages"
+          msg: ":white_check_mark: Published npm package @ommyx/rn-tourguide v3.3.${{ github.run_number }}\nhttps://github.com/ommyx/rn-tourguide/packages"
         run: |
           curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"$msg\"}" ${{ secrets.SLACK_WEBHOOK }}
 
