@@ -91,6 +91,7 @@ export const TourGuideProvider = ({
     if (mounted) {
       if (steps[tourKey]) {
         if (
+          // @ts-ignore
           (Array.isArray(steps[tourKey]) && steps[tourKey].length > 0) ||
           Object.entries(steps[tourKey]).length > 0
         ) {
