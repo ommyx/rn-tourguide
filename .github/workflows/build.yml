@@ -20,8 +20,8 @@ jobs:
         with:
           version: 3.3.${{ github.run_number }}
           file: ./package.json
-      - run: yarn install
-      - run: yarn publish
+      - run: npm install
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
