@@ -21,8 +21,7 @@ jobs:
         with:
           version: 3.3.${{ github.run_number }}
           file: ./package.json
-      - run: yarn install
-      - run: yarn publish
+      - run: npm publish
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
