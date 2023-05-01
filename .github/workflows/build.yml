@@ -23,7 +23,7 @@ jobs:
           file: ./package.json
       - run: npm publish
         env:
-          NPM_AUTH_TOKEN: ${{ secrets.NEW_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Slack notify complete
         if: ${{ success() }}
