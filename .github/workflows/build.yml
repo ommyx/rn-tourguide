@@ -21,6 +21,7 @@ jobs:
           version: 3.3.${{ github.run_number }}
           file: ./package.json
       - run: yarn install
+      - run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
       - run: yarn publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
