@@ -21,7 +21,9 @@ jobs:
         with:
           version: 3.3.${{ github.run_number }}
           file: ./package.json
-      - run: npm run build && npm publish
+      - run: npm install -g typescript
+      - run: npm run build
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
