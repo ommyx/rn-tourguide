@@ -23,10 +23,11 @@ jobs:
         with:
           version: 3.3.${{ github.run_number }}
           file: ./package.json
-      - run: npm i && run build
-      - run: npm publish
+      - run: yarn
+      - run: yarn build
+      - run: yarn publish
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Slack notify complete
         if: ${{ success() }}
